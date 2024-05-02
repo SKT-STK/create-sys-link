@@ -1,4 +1,0 @@
-powershell Start-Process powershell -Verb RunAs -ArgumentList '-NoProfile -Command "& {F:\programming-projects\rust\create-sys-link\target\release\create-sys-link.exe %V}"'"
-
-HKEY_CLASSES_ROOT\Directory\Background\shell\CreateSysLink -> Default: Create Sys Link
-\Command -> Default: the command above
