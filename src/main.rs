@@ -22,8 +22,6 @@ fn main() {
         folder_path,
       ];
 
-      println!("{:?}", mklink_args);
-
       let _ = Command::new("cmd")
         .arg("/c")
         .arg("mklink")
