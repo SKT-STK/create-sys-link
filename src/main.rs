@@ -5,10 +5,6 @@ use std::env;
 use std::process::Command;
 
 fn main() {
-  let args: Vec<String> = env::args().collect();
-
-  let base_path = &args[1];
-
   let target_folder = tfd::select_folder_dialog("Select a Folder", "");
 
   match target_folder {
@@ -18,7 +14,7 @@ fn main() {
 
       let mklink_args = vec![
         "/d".to_string(),
-        format!("{}\\{}", base_path, dest_file_name),
+        format!("{}\\..\\..\\..\\Desktop\\{}", env::temp_dir().to_str().unwrap(), dest_file_name),
         folder_path,
       ];
 
