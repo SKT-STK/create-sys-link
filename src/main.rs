@@ -18,7 +18,9 @@ fn main() {
         folder_path,
       ];
 
-      let _ = Command::new("mklink.exe")
+      let _ = Command::new("cmd")
+        .arg("/c")
+        .arg("mklink")
         .args(&mklink_args)
         .output()
         .unwrap();
