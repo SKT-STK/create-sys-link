@@ -1,31 +1,24 @@
 #![windows_subsystem = "windows"]
 
 extern crate tinyfiledialogs as tfd;
-use std::env;
-use std::process::Command;
+use std::{env, path::Path, process::Command};
 
 fn main() {
   let target_folder = tfd::select_folder_dialog("Select a Folder", "");
 
-  match target_folder {
-    Some(folder_path) => {
-      let dest_file_name: Vec<&str> = folder_path.split("\\").collect();
-      let dest_file_name = dest_file_name[dest_file_name.len() - 1];
+  if target_folder.is_none() { return; }
 
-      let mklink_args = vec![
-        "/d".to_string(),
-        format!("{}\\..\\..\\..\\Desktop\\{}", env::temp_dir().to_str().unwrap(), dest_file_name),
-        folder_path,
-      ];
+  let target_folder = target_folder.unwrap();
 
-      let _ = Command::new("cmd")
-        .arg("/c")
-        .arg("mklink")
-        .args(&mklink_args)
-        .output()
-        .unwrap();
+  let mklink_args = vec![
+    "/d".to_string(),
+    format!("{}\\{}", env::args().last().unwrap().to_string(), Path::new(&target_folder).components().last().unwrap().as_os_str().to_str().unwrap().to_string()),
+    target_folder
+  ];
 
-    }
-    None => return,
-  }
+  let _ = Command::new("cmd")
+    .arg("/c")
+    .arg("mklink")
+    .args(&mklink_args)
+    .spawn();
 }
