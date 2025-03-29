@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 tinyfiledialogs = "3.9.1"
+winreg = "0.55.0"
